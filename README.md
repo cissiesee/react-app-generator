@@ -4,7 +4,7 @@ react app 创建命令集
 ## 安装
 ### 全局安装
     npm install react-app-generator -g
-### 本地项目全局链接（仅工具开发者关注）
+### 本地项目全局链接（仅工具开发者关注）
     npm link
 
 ## 使用
