@@ -8,8 +8,8 @@
 ### 安装依赖
     npm install
 ### 预编译类库
-    npm run dllreact && npm run dlllib
+    npm run dllreact-dev && npm run dlllib-dev
 ### 开发
     npm run dev
 ### 打包
-    npm run build
+    npm run dllreact && npm run dlllib && npm run build

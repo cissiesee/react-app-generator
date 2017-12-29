@@ -10,6 +10,7 @@ import SecondPage from "./secondpage/SecondPage";
 import ThirdPage from "./thirdpage/ThirdPage";
 
 import "../styles/ui.less";
+import "../styles/reset.less";
 import "./container.less";
 import "./router-animate.less";
 

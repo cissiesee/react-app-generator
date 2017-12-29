@@ -1,5 +1,4 @@
 import * as React from "react";
-import { immutableRenderDecorator } from "react-immutable-render-mixin";
 import { connect } from "react-redux";
 // TODO:import * as itemsActions from "../../reducers/items/itemsAction";
 import { bindActionCreators } from "redux";
@@ -26,7 +25,7 @@ class <%=destClass%> extends React.Component < Iprops, {} > {
         // console.log("context:", this.context);
         const actions: Iactions = this.props.actions;
         return (
-            <div className="ui-page">
+            <div className="ui-page <%=destStyle%>">
             </div>
         );
     }
@@ -38,4 +37,4 @@ export default connect((state) => ({
     actions: bindActionCreators({
         //TODO
     }, dispatch)
-}))(immutableRenderDecorator(<%=destClass %>));
+}))(<%=destClass %>);

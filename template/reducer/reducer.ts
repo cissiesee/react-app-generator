@@ -1,8 +1,9 @@
 import * as actionTypes from "../actionTypes";
-import { Iaction } from "./<%=reducerName%>Interface";
+import { IAction } from "../reducerInterface";
+import { /*todo*/ } from "./<%=reducerName%>Action";
 import <%=reducerName %>State from "./<%=reducerName%>State";
 
-export default function <%=reducerName%>(state: string = <%=reducerName %>State, action: Iaction) {
+export default function <%=reducerName%>(state: /*type*/ = <%=reducerName %>State, action: IAction) {
     switch (action.type) {
         // TODO
         default:

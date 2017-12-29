@@ -1,10 +1,10 @@
 import * as actionTypes from "../actionTypes";
-import { Iaction } from "./filterInterface";
+import { IAction } from "../reducerInterface";
 
 export function filterItem(value: number) {
-    const action: Iaction = {
-        type: actionTypes.FILTER_ITEM,
-        filterItem: value
+    const action: IAction = {
+        type: "filter/filterItem",
+        data: value
     };
     return action;
 }

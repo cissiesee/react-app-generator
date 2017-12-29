@@ -1,0 +1,1 @@
+export const /*action type variable*/ = "<%=reducerName%>/*action name*/";

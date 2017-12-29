@@ -1,2 +1,18 @@
-node_modules/*
-build/*
+package-lock.json
+# dependencies
+node_modules
+
+# compiled output
+build
+release
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# System Files
+.DS_Store
+Thumbs.db

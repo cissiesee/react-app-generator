@@ -1,0 +1,324 @@
+#!/usr/bin/env node
+var ejs = require("ejs");
+var program = require("commander");
+var fs = require("fs-extra");
+var os = require("os");
+var path = require("path");
+var readline = require("readline");
+var util = require("util");
+var colors = require("colors");
+var _ = require("lodash");
+
+var _exit = process.exit;
+var eol = os.EOL;
+var pkg = require("../package.json");
+
+var version = pkg.version;
+var programOptions;
+
+// Re-assign process.exit because of commander
+// TODO: Switch to a different command framework
+process.exit = exit;
+
+program
+	.version(version, "    --version")
+	.option("-t --ts <boolean>", "if use ts")
+	.option("-f, --force", "force on non-empty directory")
+	.option("-d, --dir <string>", "directory specified")
+	.option("-t, --container <name>", "create container with specified name")
+	.option("    --jtcontainer <name>", "create jtcontainer with specified name")
+	.option("-p, --component <name>", "create component with specified name")
+	.option("-r, --reducer <name>", "create reducer with specified name")
+	.option("-s, --service <name>", "create service with specified name")
+	.option("    --ui <name>", "create ui with specified name")
+	//...
+	.parse(process.argv);
+
+if (!exit.exited) {
+	main();
+}
+
+function main() {
+	programOptions = _.extend({
+		ts: false,
+		dir: ".",
+		container: "containername",
+		component: "compname",
+		reducer: "reducername",
+		service: "servicename"
+	}, program);
+
+	programOptions.template = programOptions.ts ? "template" : "templatejs";
+	programOptions.ltype = programOptions.ts ? "ts" : "js";
+
+	// App name
+	var appName = path.basename(path.resolve(programOptions.dir));
+
+	createApplication();
+}
+
+function createApplication() {
+	var destElementFolder = program.container || program.jtcontainer || program.component || program.reducer || program.service || program.ui;
+	if (!program.dir && !destElementFolder) {
+		console.log("please use react-app --dir <name> or see help react-app --help".red);
+		exit(1);
+	}
+	if (!destElementFolder) {
+		if (program.dir && program.dir !== ".") {
+			mkdir(".", function (err) {
+				if (err) {
+					console.error("mkdir destinationPath: ", err);
+				} else {
+					createApp();
+				}
+			});
+		} else {
+			createApp();
+		}
+	} else {
+		if (program.container) {
+			isExisted("./app/containers/" + destElementFolder, function (isFileExisted) {
+				if (isFileExisted) {
+					console.log(("Error! container:" + destElementFolder + " is already exit, please choose a new name!").red);
+					exit(1);
+				} else {
+					createElement("container");
+				}
+			});
+		} else if (program.jtcontainer) {
+			isExisted("./app/containers/" + destElementFolder, function (isFileExisted) {
+				if (isFileExisted) {
+					console.log(("Error! container:" + destElementFolder + " is already exit, please choose a new name!").red);
+					exit(1);
+				} else {
+					createElement("container", "jt");
+				}
+			});
+		} else if (program.component) {
+			isExisted("./app/components/" + destElementFolder, function (isFileExisted) {
+				if (isFileExisted) {
+					console.log(("Error! component:" + destElementFolder + " is already exit, please choose a new name!").red);
+					exit(1);
+				} else {
+					createElement("component");
+				}
+			});
+		} else if (program.reducer) {
+			isExisted("./app/reducers/" + destElementFolder, function (isFileExisted) {
+				if (isFileExisted) {
+					console.log(("Error! reducer:" + destElementFolder + " is already exit, please choose a new name!").red);
+					exit(1);
+				} else {
+					createReducer();
+				}
+			});
+		} else if (program.service) {
+			isExisted("./app/service/" + programOptions.service + "Service." + programOptions.ltype, function (isFileExisted) {
+				if (isFileExisted) {
+					console.log(("Error! service:" + destElementFolder + " is already exit, please choose a new name!").red);
+					exit(1);
+				} else {
+					createService();
+				}
+			});
+		} else if (program.ui) {
+			isExisted("./app/ui/" + destElementFolder, function (isFileExisted) {
+				if (isFileExisted) {
+					console.log(("Error! ui:" + destElementFolder + " is already exit, please choose a new name!").red);
+					exit(1);
+				} else {
+					createUI();
+				}
+			});
+		}
+	}
+}
+
+function createApp() {
+	copyFile(".", "app", function (err) {
+		if (err) {
+			console.log("copy app: ", err);
+		} else {
+			console.log("Successfull! app is created! Start with README.md!".green);
+		}
+	});
+}
+
+function createElement(type, subType) {
+	var _subType = subType || "";
+	var destName = programOptions[_subType + type];
+	var destPath = "./app/" + type + "s/" + destName;
+	var destClass = capitalize(destName);
+	var destFile = destClass + capitalize(type);
+	var destStyle = destName + "-" + type;
+	var srcName = _subType + type + "/" + capitalize(type);
+	mkdir(destPath, function (err) {
+		if (err) {
+			console.error("mkdir " + type + ": ", err);
+		} else {
+			mkdir(destPath + "/img");
+			writeFile(destPath + "/" + destFile + "." + programOptions.ltype + "x", srcName + "." + programOptions.ltype + "x", {
+				destClass: destClass,
+				destStyle: destStyle
+			});
+			writeFile(destPath + "/" + destStyle + ".less", srcName + ".less", {
+				destStyle: destStyle
+			});
+			console.log((type + ": " + destPath + " is created!").green);
+		}
+	});
+}
+
+function createUI() {
+	var destName = programOptions.ui;
+	var destPath = "./app/ui/" + destName;
+	var destClass = capitalize(destName);
+	var destFile = "UI" + destClass;
+	var destStyle = "ui-" + destName;
+	var srcName = "component/" + capitalize("component");
+	mkdir(destPath, function (err) {
+		if (err) {
+			console.error("mkdir " + type + ": ", err);
+		} else {
+			mkdir(destPath + "/img");
+			writeFile(destPath + "/" + destFile + "." + programOptions.ltype + "x", srcName + "." + programOptions.ltype + "x", {
+				destClass: destClass,
+				destStyle: destStyle
+			});
+			writeFile(destPath + "/" + destStyle + ".less", srcName + ".less", {
+				destStyle: destStyle
+			});
+			console.log(("ui: " + destPath + " is created!").green);
+		}
+	});
+}
+
+function createReducer() {
+	var reducerName = programOptions.reducer;
+	var reducerClass = capitalize(reducerName);
+	var reducerPath = "./app/reducers/" + reducerName;
+	var reducerFile = reducerName + "Reducer";
+	var actionFile = reducerName + "Action";
+	var stateFile = reducerName + "State";
+	var typesFile = reducerName + "Types";
+	var srcPath = "./reducer/";
+
+	mkdir(reducerPath, function (err) {
+		if (err) {
+			console.error("mkdir reducer", err);
+		} else {
+			writeFile(reducerPath + "/" + reducerFile + "." + programOptions.ltype, srcPath + "reducer." + programOptions.ltype, {
+				reducerName: reducerName
+			});
+			writeFile(reducerPath + "/" + actionFile + "." + programOptions.ltype, srcPath + "action." + programOptions.ltype, {
+				reducerClass: reducerClass,
+				reducerName: reducerName
+			});
+			writeFile(reducerPath + "/" + stateFile + "." + programOptions.ltype, srcPath + "state." + programOptions.ltype, {
+				reducerName: reducerName
+			});
+			writeFile(reducerPath + "/" + typesFile + "." + programOptions.ltype, srcPath + "types." + programOptions.ltype, {
+				reducerName: reducerName
+			});
+			console.log(("reducer: " + reducerPath + " is created!").green);
+		}
+	});
+}
+
+function createService() {
+	var serviceName = programOptions.service;
+	var serviceClass = capitalize(serviceName);
+	var serviceFile = serviceName + "Service";
+	var servicePath = "./app/service/" + serviceFile;
+	var srcPath = "./service/";
+
+	writeFile(servicePath + "." + programOptions.ltype, srcPath + "service." + programOptions.ltype, {
+		serviceName: serviceName
+	});
+	console.log(("service: " + servicePath + " is created!").green);
+}
+
+function capitalize(str) {
+	return str[0].toUpperCase() + str.substr(1);
+}
+
+// dir以目标根地址为参照
+function mkdir(dir, callback) {
+	fs.mkdir(path.join(programOptions.dir, dir), function (err) {
+		if (callback) callback(err);
+	});
+}
+
+// destFile以目标根地址为参照
+// srcFile以源地址template目录为参照
+function copyFile(destFile, srcFile, callback) {
+	fs.copy(path.join(__dirname, "..", programOptions.template, srcFile), path.join(programOptions.dir, destFile), function (err) {
+		callback(err);
+	});
+}
+
+// destFile以目标根地址为参照
+// srcFile以源地址template目录为参照
+function writeFile(destFile, srcFile, data) {
+	var srcFileContent = fs.readFileSync(path.join(__dirname, "../" + programOptions.template, srcFile)).toString();
+	fs.writeFileSync(path.join(programOptions.dir, destFile), data ? ejs.render(srcFileContent, data) : srcFileContent);
+}
+
+// destFile以目标地址为参照
+function isExisted(destFile, callback) {
+	fs.exists(path.join(programOptions.dir, destFile), function (isFileExisted) {
+		callback(isFileExisted);
+	});
+}
+
+function confirm(msg, callback) {
+	var rl = readline.createInterface({
+		input: process.stdin,
+		output: process.stdout
+	});
+
+	rl.question(msg, function (input) {
+		rl.close();
+		callback(/^y|yes|ok|true$/i.test(input));
+	});
+}
+
+/**
+ * Graceful exit for async STDIO
+ */
+
+function exit(code) {
+	// flush output for Node.js Windows pipe bug
+	// https://github.com/joyent/node/issues/6247 is just one bug example
+	// https://github.com/visionmedia/mocha/issues/333 has a good discussion
+	function done() {
+		if (!(draining--)) _exit(code);
+	}
+
+	var draining = 0;
+	var streams = [process.stdout, process.stderr];
+
+	exit.exited = true;
+
+	streams.forEach(function (stream) {
+		// submit empty write request and wait for completion
+		draining += 1;
+		stream.write("", done);
+	});
+
+	done();
+}
+
+/**
+ * Check if the given directory `path` is empty.
+ *
+ * @param {String} path
+ * @param {Function} fn
+ */
+
+function isDirectoryEmpty(path, fn) {
+	fs.readdir(path, function (err, files) {
+		if (err && "ENOENT" != err.code) throw err;
+		fn(!files || !files.length);
+	});
+}

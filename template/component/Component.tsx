@@ -11,18 +11,18 @@ interface Iprops {
 // pure render function
 const <%=destClass %> = (props: Iprops) => {
     return (
-        <div>{this.props.someProp}</div>
+        <div className="<%=destStyle%>">{this.props.someProp}</div>
     );
 };
 
 // or more complex class
-// export default class <%=destClass %> extends React.Component < Iprops, {} > {
+// class <%=destClass %> extends React.Component <Iprops, {}> {
 //     public componentDidMount() {
 //         // TODO
 //     }
 //     public render() {
 //         return (
-//             <div>{this.props.someProp}</div>
+//             <div className="<%=destStyle%>">{this.props.someProp}</div>
 //         );
 //     }
 // }

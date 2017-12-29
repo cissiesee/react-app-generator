@@ -19,6 +19,7 @@ interface Iprops { items: number[]; filter: string; actions: Iactions; }
 
 class App extends React.Component<Iprops, {}> {
     public componentDidMount() {
+        [1, 2, 3].find((item) => item === 1);
         console.log("app page didmount");
     }
     public componentWillUnmount() {

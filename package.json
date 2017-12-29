@@ -1,10 +1,10 @@
 {
-    "name": "react-app-generator",
-    "version": "1.0.0",
+    "name": "lk-react-app-cli",
+    "version": "1.2.1",
     "description": "react app generator tools",
-    "main": "bin/react-app",
+    "main": "bin/lk-react-app",
     "bin": {
-        "react-app": "./bin/react-app"
+        "lk-react-app": "./bin/lk-react-app"
     },
     "author": "huangzt",
     "license": "MIT",
