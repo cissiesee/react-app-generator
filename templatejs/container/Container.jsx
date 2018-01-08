@@ -1,16 +1,27 @@
 import * as React from "react";
-import { connect } from "react-redux";
+
 import Page from "../../ui/UIPage";
 // TODO:import * as itemsActions from "../../reducers/items/itemsAction";
-import { bindActionCreators } from "redux";
+<% if (mobx) { %>
+import { observer } from "mobx-react";
+//import store from "../../store/main";
+<% } else { %>
+import { connect } from "react-redux";
+    import { bindActionCreators } from "redux";
+<% } %>
 import { Link } from "react-router-dom";
 
 import "./<%=destStyle%>.less";
 
+<% if (mobx) { %>
+@observer
+<% } %>
 class <%=destClass%> extends React.Component {
+    <% if (mobx) { %>
     static defaultProps = {
         actions: {}
     }
+    <% } %>
     componentDidMount() {
         console.log("app page didmount");
     }
@@ -27,6 +38,9 @@ class <%=destClass%> extends React.Component {
     }
 }
 
+<% if (mobx) { %>
+export default <%=destClass %>;
+<% } else { %>
 export default connect((state) => ({
     // someKey: state.someKey
 }), (dispatch) => ({
@@ -34,3 +48,4 @@ export default connect((state) => ({
         //TODO
     }, dispatch)
 }))(<%=destClass %>);
+<% } %>

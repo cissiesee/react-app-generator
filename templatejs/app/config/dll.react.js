@@ -12,13 +12,13 @@ module.exports = {
         "reactRel_min": constant.reactVendor
     },
     output: {
-        path: path.resolve(__dirname, constant.distLibPath),
+        path: path.resolve(__dirname, constant.libPath),
         filename: "[name]." + constant.timeStamp + ".js",
         library: "[name]"
     },
     plugins: [
         new webpack.DllPlugin({
-            path: path.resolve(__dirname, constant.distLibPath + "/manifest-react.json"),
+            path: path.resolve(__dirname, constant.libPath + "/manifest-react_min.json"),
             name: "[name]",
             context: __dirname
         }),
@@ -27,8 +27,8 @@ module.exports = {
             filename: "react_min-config.json"
         }),
         new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('production')
+            "process.env": {
+                NODE_ENV: JSON.stringify("production")
             }
         }),
         new UglifyJsPlugin()

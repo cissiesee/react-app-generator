@@ -12,13 +12,13 @@ module.exports = {
         "lib_min": constant.libVendor
     },
     output: {
-        path: path.resolve(__dirname, constant.distLibPath),
+        path: path.resolve(__dirname, constant.libPath),
         filename: "[name]." + constant.timeStamp + ".js",
         library: "[name]"
     },
     plugins: [
         new webpack.DllPlugin({
-            path: path.resolve(__dirname, constant.distLibPath + "/manifest-lib.json"),
+            path: path.resolve(__dirname, constant.libPath + "/manifest-lib_min.json"),
             name: "[name]",
             context: __dirname
         }),
@@ -27,8 +27,8 @@ module.exports = {
             filename: "lib_min-config.json"
         }),
         new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('production')
+            "process.env": {
+                NODE_ENV: JSON.stringify("production")
             }
         }),
         new UglifyJsPlugin()

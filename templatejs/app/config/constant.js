@@ -1,16 +1,18 @@
-var outDir = "../build/";
-var distDir = "../release/";
+var outDir = "../public/dist/";
+//var distDir = "../../server/public/app/";
+var tplDir = "../views/";
 var timeStamp = (new Date()).getTime() + "";
 
 module.exports = {
     timeStamp: "znlc" + timeStamp,
-    publicPath: "./app/",
+    publicPath: "./dist/",
     outDir: outDir,
-    distDir: distDir,
-    srcDir: "../app/",
+    //distDir: distDir,
+    srcDir: "../src/",
+    tplDir: tplDir,
     libPath: outDir + "lib/",
-    distLibPath: distDir + "lib/",
-    distAppPath: "app/",
+    //distLibPath: distDir + "lib/",
+    //distAppPath: "app/",
     reactVendor: [
         "react",
         "react-immutable-render-mixin",

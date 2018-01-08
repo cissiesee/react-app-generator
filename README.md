@@ -9,9 +9,9 @@ react app 创建命令集
 **注：请在项目根目录下运行**
 ### 创建react项目
     lk-react-app --dir <reactprojectname>
-### 创建cotainer
+### 创建container
     lk-react-app --container <containername>
-### 创建jtcotainer(建投容器)
+### 创建jtcontainer(建投容器)
     lk-react-app --jtcontainer <containername>
 ### 创建component
     lk-react-app --component <componentname>
@@ -21,6 +21,8 @@ react app 创建命令集
     lk-react-app --service <servicename>
 ### 创建ui
     lk-react-app --ui <uiname>
+### 创建router
+    lk-react-app --router <routername>
 ## 升级说明
 ### 1.0.0
 1. 第一次发布
@@ -66,3 +68,17 @@ react app 创建命令集
 
 ### 1.2.1
 1. fix service-cli bug
+
+### 1.3.0
+1. change to express structure to meet mockserver demond
+1. add browser-sync to auto reload
+
+### 1.3.1
+1. add router cli
+
+### 1.4.0
+1. 更换route位置，调整router cli
+
+### 1.5.0
+1. add gitignore
+1. add mobx

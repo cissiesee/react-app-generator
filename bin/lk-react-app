@@ -20,17 +20,22 @@ var programOptions;
 // TODO: Switch to a different command framework
 process.exit = exit;
 
+var frontSrc = "./src/";
+
 program
 	.version(version, "    --version")
 	.option("-t --ts <boolean>", "if use ts")
+	.option("   --mobx <boolean>", "if use mobx container template")
 	.option("-f, --force", "force on non-empty directory")
 	.option("-d, --dir <string>", "directory specified")
 	.option("-t, --container <name>", "create container with specified name")
 	.option("    --jtcontainer <name>", "create jtcontainer with specified name")
 	.option("-p, --component <name>", "create component with specified name")
 	.option("-r, --reducer <name>", "create reducer with specified name")
+	.option("    --store <name>", "create store(mobx) with specified name")
 	.option("-s, --service <name>", "create service with specified name")
 	.option("    --ui <name>", "create ui with specified name")
+	.option("    --router <name>", "create router with specified name")
 	//...
 	.parse(process.argv);
 
@@ -41,11 +46,13 @@ if (!exit.exited) {
 function main() {
 	programOptions = _.extend({
 		ts: false,
+		mobx: false,
 		dir: ".",
 		container: "containername",
 		component: "compname",
 		reducer: "reducername",
-		service: "servicename"
+		service: "servicename",
+		router: "routername"
 	}, program);
 
 	programOptions.template = programOptions.ts ? "template" : "templatejs";
@@ -58,7 +65,7 @@ function main() {
 }
 
 function createApplication() {
-	var destElementFolder = program.container || program.jtcontainer || program.component || program.reducer || program.service || program.ui;
+	var destElementFolder = program.container || program.jtcontainer || program.component || program.reducer || program.service || program.ui || program.router || program.store;
 	if (!program.dir && !destElementFolder) {
 		console.log("please use react-app --dir <name> or see help react-app --help".red);
 		exit(1);
@@ -77,7 +84,7 @@ function createApplication() {
 		}
 	} else {
 		if (program.container) {
-			isExisted("./app/containers/" + destElementFolder, function (isFileExisted) {
+			isExisted(frontSrc + "containers/" + destElementFolder, function (isFileExisted) {
 				if (isFileExisted) {
 					console.log(("Error! container:" + destElementFolder + " is already exit, please choose a new name!").red);
 					exit(1);
@@ -86,7 +93,7 @@ function createApplication() {
 				}
 			});
 		} else if (program.jtcontainer) {
-			isExisted("./app/containers/" + destElementFolder, function (isFileExisted) {
+			isExisted(frontSrc + "containers/" + destElementFolder, function (isFileExisted) {
 				if (isFileExisted) {
 					console.log(("Error! container:" + destElementFolder + " is already exit, please choose a new name!").red);
 					exit(1);
@@ -95,7 +102,7 @@ function createApplication() {
 				}
 			});
 		} else if (program.component) {
-			isExisted("./app/components/" + destElementFolder, function (isFileExisted) {
+			isExisted(frontSrc + "components/" + destElementFolder, function (isFileExisted) {
 				if (isFileExisted) {
 					console.log(("Error! component:" + destElementFolder + " is already exit, please choose a new name!").red);
 					exit(1);
@@ -104,7 +111,7 @@ function createApplication() {
 				}
 			});
 		} else if (program.reducer) {
-			isExisted("./app/reducers/" + destElementFolder, function (isFileExisted) {
+			isExisted(frontSrc + "reducers/" + destElementFolder, function (isFileExisted) {
 				if (isFileExisted) {
 					console.log(("Error! reducer:" + destElementFolder + " is already exit, please choose a new name!").red);
 					exit(1);
@@ -112,8 +119,17 @@ function createApplication() {
 					createReducer();
 				}
 			});
+		} else if (program.store) {
+			isExisted(frontSrc + "stores/" + programOptions.store + "Store." + programOptions.ltype, function (isFileExisted) {
+				if (isFileExisted) {
+					console.log(("Error! store:" + destElementFolder + " is already exit, please choose a new name!").red);
+					exit(1);
+				} else {
+					createStore();
+				}
+			});
 		} else if (program.service) {
-			isExisted("./app/service/" + programOptions.service + "Service." + programOptions.ltype, function (isFileExisted) {
+			isExisted(frontSrc + "service/" + programOptions.service + "Service." + programOptions.ltype, function (isFileExisted) {
 				if (isFileExisted) {
 					console.log(("Error! service:" + destElementFolder + " is already exit, please choose a new name!").red);
 					exit(1);
@@ -122,12 +138,21 @@ function createApplication() {
 				}
 			});
 		} else if (program.ui) {
-			isExisted("./app/ui/" + destElementFolder, function (isFileExisted) {
+			isExisted(frontSrc + "ui/" + destElementFolder, function (isFileExisted) {
 				if (isFileExisted) {
 					console.log(("Error! ui:" + destElementFolder + " is already exit, please choose a new name!").red);
 					exit(1);
 				} else {
 					createUI();
+				}
+			});
+		} else if (program.router) {
+			isExisted(frontSrc + "./mock/routes" + programOptions.service + "Router." + programOptions.ltype, function (isFileExisted) {
+				if (isFileExisted) {
+					console.log(("Error! router:" + destElementFolder + " is already exit, please choose a new name!").red);
+					exit(1);
+				} else {
+					createRouter();
 				}
 			});
 		}
@@ -147,7 +172,7 @@ function createApp() {
 function createElement(type, subType) {
 	var _subType = subType || "";
 	var destName = programOptions[_subType + type];
-	var destPath = "./app/" + type + "s/" + destName;
+	var destPath = frontSrc + type + "s/" + destName;
 	var destClass = capitalize(destName);
 	var destFile = destClass + capitalize(type);
 	var destStyle = destName + "-" + type;
@@ -159,7 +184,8 @@ function createElement(type, subType) {
 			mkdir(destPath + "/img");
 			writeFile(destPath + "/" + destFile + "." + programOptions.ltype + "x", srcName + "." + programOptions.ltype + "x", {
 				destClass: destClass,
-				destStyle: destStyle
+				destStyle: destStyle,
+				mobx: programOptions.mobx
 			});
 			writeFile(destPath + "/" + destStyle + ".less", srcName + ".less", {
 				destStyle: destStyle
@@ -171,7 +197,7 @@ function createElement(type, subType) {
 
 function createUI() {
 	var destName = programOptions.ui;
-	var destPath = "./app/ui/" + destName;
+	var destPath = frontSrc + "ui/" + destName;
 	var destClass = capitalize(destName);
 	var destFile = "UI" + destClass;
 	var destStyle = "ui-" + destName;
@@ -196,7 +222,7 @@ function createUI() {
 function createReducer() {
 	var reducerName = programOptions.reducer;
 	var reducerClass = capitalize(reducerName);
-	var reducerPath = "./app/reducers/" + reducerName;
+	var reducerPath = frontSrc + "reducers/" + reducerName;
 	var reducerFile = reducerName + "Reducer";
 	var actionFile = reducerName + "Action";
 	var stateFile = reducerName + "State";
@@ -225,17 +251,44 @@ function createReducer() {
 	});
 }
 
+function createStore() {
+	var storeName = programOptions.store;
+	var storeClass = capitalize(storeName);
+	var storeFile = storeName + "Store";
+	var storePath = frontSrc + "stores/" + storeFile;
+	var srcPath = "./store/";
+
+	writeFile(storePath + "." + programOptions.ltype, srcPath + "store." + programOptions.ltype, {
+		storeClass: storeClass,
+		storeName: storeName
+	});
+	console.log(("store: " + storePath + " is created!").green);
+}
+
 function createService() {
 	var serviceName = programOptions.service;
 	var serviceClass = capitalize(serviceName);
 	var serviceFile = serviceName + "Service";
-	var servicePath = "./app/service/" + serviceFile;
+	var servicePath = frontSrc + "service/" + serviceFile;
 	var srcPath = "./service/";
 
 	writeFile(servicePath + "." + programOptions.ltype, srcPath + "service." + programOptions.ltype, {
 		serviceName: serviceName
 	});
 	console.log(("service: " + servicePath + " is created!").green);
+}
+
+function createRouter() {
+	var routerName = programOptions.router;
+	var routerClass = capitalize(routerName);
+	var routerFile = routerName + "Router";
+	var routerPath = frontSrc + "./mock/routes/" + routerFile;
+	var srcPath = "./route/";
+
+	writeFile(routerPath + "." + programOptions.ltype, srcPath + "Router." + programOptions.ltype, {
+		routerName: routerName
+	});
+	console.log(("router: " + routerPath + " is created!").green);
 }
 
 function capitalize(str) {
@@ -260,6 +313,7 @@ function copyFile(destFile, srcFile, callback) {
 // destFile以目标根地址为参照
 // srcFile以源地址template目录为参照
 function writeFile(destFile, srcFile, data) {
+	console.log(destFile, srcFile);
 	var srcFileContent = fs.readFileSync(path.join(__dirname, "../" + programOptions.template, srcFile)).toString();
 	fs.writeFileSync(path.join(programOptions.dir, destFile), data ? ejs.render(srcFileContent, data) : srcFileContent);
 }
