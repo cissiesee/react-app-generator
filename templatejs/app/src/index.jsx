@@ -3,8 +3,6 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import Container from "./containers/Container";
 import configureStore from "./configureStore";
-import { AppContainer } from "react-hot-loader";
-import "babel-polyfill";
 // import { Router, Route, IndexRoute } from "react-router";
 // import { RouteTransition } from 'react-router-transition';
 import {
@@ -15,15 +13,9 @@ import {
 const store = configureStore();
 
 render(
-    <AppContainer>
-        <Provider store={store}>
-            <HashRouter>
-                <Route path="/" component={Container} />
-            </HashRouter>
-        </Provider>
-    </AppContainer>, document.getElementById("app")
+    <Provider store={store}>
+        <HashRouter>
+            <Route path="/" component={Container} />
+        </HashRouter>
+    </Provider>, document.getElementById("app")
 );
-
-if (module.hot) {
-    module.hot.accept();
-}

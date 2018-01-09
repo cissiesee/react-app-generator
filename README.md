@@ -10,13 +10,17 @@ react app 创建命令集
 ### 创建react项目
     lk-react-app --dir <reactprojectname>
 ### 创建container
-    lk-react-app --container <containername>
+    lk-react-app [--mobx true] --container <containername>
 ### 创建jtcontainer(建投容器)
     lk-react-app --jtcontainer <containername>
 ### 创建component
     lk-react-app --component <componentname>
 ### 创建reducer
     lk-react-app --reducer <reducername>
+### 创建store(mobx)
+    lk-react-app --store <storename>
+### 创建provider
+    lk-react-app --provider <providername>
 ### 创建service
     lk-react-app --service <servicename>
 ### 创建ui
@@ -82,3 +86,7 @@ react app 创建命令集
 ### 1.5.0
 1. add gitignore
 1. add mobx
+
+### 1.5.1
+1. add provider cli
+1. fix uipage bug and inject history

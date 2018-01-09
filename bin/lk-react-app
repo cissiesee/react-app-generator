@@ -33,6 +33,7 @@ program
 	.option("-p, --component <name>", "create component with specified name")
 	.option("-r, --reducer <name>", "create reducer with specified name")
 	.option("    --store <name>", "create store(mobx) with specified name")
+	.option("    --provider <name>", "create provider with specified name")
 	.option("-s, --service <name>", "create service with specified name")
 	.option("    --ui <name>", "create ui with specified name")
 	.option("    --router <name>", "create router with specified name")
@@ -52,7 +53,9 @@ function main() {
 		component: "compname",
 		reducer: "reducername",
 		service: "servicename",
-		router: "routername"
+		router: "routername",
+		store: "storename",
+		provider: "providername"
 	}, program);
 
 	programOptions.template = programOptions.ts ? "template" : "templatejs";
@@ -65,7 +68,16 @@ function main() {
 }
 
 function createApplication() {
-	var destElementFolder = program.container || program.jtcontainer || program.component || program.reducer || program.service || program.ui || program.router || program.store;
+	var destElementFolder = program.container ||
+		program.jtcontainer ||
+		program.component ||
+		program.reducer ||
+		program.service ||
+		program.ui ||
+		program.router ||
+		program.store ||
+		program.provider;
+
 	if (!program.dir && !destElementFolder) {
 		console.log("please use react-app --dir <name> or see help react-app --help".red);
 		exit(1);
@@ -126,6 +138,15 @@ function createApplication() {
 					exit(1);
 				} else {
 					createStore();
+				}
+			});
+		} else if (program.provider) {
+			isExisted(frontSrc + "providers/" + programOptions.provider + "Provider." + programOptions.ltype, function (isFileExisted) {
+				if (isFileExisted) {
+					console.log(("Error! provider:" + destElementFolder + " is already exit, please choose a new name!").red);
+					exit(1);
+				} else {
+					createProvider();
 				}
 			});
 		} else if (program.service) {
@@ -263,6 +284,20 @@ function createStore() {
 		storeName: storeName
 	});
 	console.log(("store: " + storePath + " is created!").green);
+}
+
+function createProvider() {
+	var providerName = programOptions.provider;
+	var providerClass = capitalize(providerName);
+	var providerFile = providerName + "Provider";
+	var providerFullName = providerClass + "Provider";
+	var providerPath = frontSrc + "providers/" + providerFile;
+	var srcPath = "./provider/";
+
+	writeFile(providerPath + "." + programOptions.ltype, srcPath + "Provider." + programOptions.ltype, {
+		providerFullName: providerFullName
+	});
+	console.log(("provider: " + providerPath + " is created!").green);
 }
 
 function createService() {

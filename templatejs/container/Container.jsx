@@ -1,13 +1,13 @@
 import * as React from "react";
 
-import Page from "../../ui/UIPage";
+import Page from "../../ui/page/UIPage";
 // TODO:import * as itemsActions from "../../reducers/items/itemsAction";
 <% if (mobx) { %>
 import { observer } from "mobx-react";
 //import store from "../../store/main";
 <% } else { %>
 import { connect } from "react-redux";
-    import { bindActionCreators } from "redux";
+import { bindActionCreators } from "redux";
 <% } %>
 import { Link } from "react-router-dom";
 
@@ -32,7 +32,7 @@ class <%=destClass%> extends React.Component {
         // console.log("context:", this.context);
         const actions = this.props.actions;
         return (
-            <Page className="<%=destStyle%>">
+            <Page className="<%=destStyle%>" history={this.props.history}>
             </Page>
         );
     }
