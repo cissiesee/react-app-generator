@@ -5,6 +5,7 @@ node_modules
 # compiled output
 build
 release
+public
 
 # IDE - VSCode
 .vscode/*
