@@ -17,9 +17,9 @@ class Container extends React.Component {
     componentWillMount() {
         document.body.style.margin = "0px";
         // 这是防止页面被拖拽
-        document.body.addEventListener("touchmove", (ev) => {
-            ev.preventDefault();
-        });
+        // document.body.addEventListener("touchmove", (ev) => {
+        //     ev.preventDefault();
+        // });
     }
     render() {
         // console.log(this.props.location.pathname, ",", this.props.history.action);
