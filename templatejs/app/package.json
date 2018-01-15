@@ -63,6 +63,7 @@
     },
     "devDependencies": {
         "assets-webpack-plugin": "^3.5.1",
+        "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.1.2",
         "babel-loader": "^7.1.2",
@@ -80,10 +81,11 @@
         "core-js": "^2.5.1",
         "eslint": "^4.14.0",
         "lk-http-request": "^1.0.2",
-        "mocha": "^3.2.0",
-        "prop-types": "^15.6.0",
         "mobx": "^3.4.1",
         "mobx-react": "^4.3.5",
+        "mocha": "^3.2.0",
+        "nodemon": "^1.14.10",
+        "prop-types": "^15.6.0",
         "webpack": "^3.10.0",
         "webpack-dev-middleware": "^2.0.3"
     }

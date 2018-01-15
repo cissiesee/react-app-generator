@@ -1,4 +1,4 @@
-import * as actionTypes from "./<%=reducerName%>Type";
+import * as actionTypes from "./<%=reducerName%>Types";
 import { /*todo*/ } from "./<%=reducerName%>Action";
 import <%=reducerName %>State from "./<%=reducerName%>State";
 

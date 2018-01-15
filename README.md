@@ -90,3 +90,8 @@ react app 创建命令集
 ### 1.5.1
 1. add provider cli
 1. fix uipage bug and inject history
+1. fix bug: can't scroll on mobile
+
+### 1.5.2
+1. turn babel-cli and nodemon to local dependency
+2. fix bug(import type=>import types in reducer tpl)
