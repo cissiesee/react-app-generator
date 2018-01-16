@@ -1,4 +1,5 @@
 import httpRequest from "lk-http-request";
+import host from "./host";
 
 /**
  * @param data datadesc 
@@ -12,5 +13,5 @@ export function <%=serviceName %>Service(data) {
         type: "post", //or get
         data // if has request data
     };
-    return httpRequest("/*url*/", requestOption);
+    return httpRequest(host + "/*url*/", requestOption);
 }

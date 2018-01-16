@@ -94,4 +94,7 @@ react app 创建命令集
 
 ### 1.5.2
 1. turn babel-cli and nodemon to local dependency
-2. fix bug(import type=>import types in reducer tpl)
+1. fix bug(import type=>import types in reducer tpl)
+
+### 1.5.3
+1. service增加host前缀配置
