@@ -2,7 +2,7 @@ import * as React from "react";
 import { immutableRenderDecorator } from "react-immutable-render-mixin";
 import Button from "antd/lib/button";
 import "antd/lib/button/style";
-import "./footer.less";
+import "./footer-component.less";
 
 const Footer = (props) => {
     return (

@@ -8,7 +8,7 @@ import host from "./host";
  * }
  */
 
-export function <%=serviceName %>Service(data) {
+export default function <%=serviceName %>Service(data) {
     const requestOption = {
         type: "post", //or get
         data // if has request data

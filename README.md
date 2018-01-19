@@ -98,3 +98,9 @@ react app 创建命令集
 
 ### 1.5.3
 1. service增加host前缀配置
+
+### 1.5.4
+1. add host file
+1. adjust demo name rule
+1. adjust build logic
+1. improve readme logic

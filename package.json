@@ -1,6 +1,6 @@
 {
     "name": "lk-react-app-cli",
-    "version": "1.5.3",
+    "version": "1.5.4",
     "description": "react app generator tools",
     "main": "bin/lk-react-app",
     "bin": {

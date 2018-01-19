@@ -4,9 +4,9 @@ import ImmutableRenderMixin from "react-immutable-render-mixin";
 import { Switch } from "react-router";
 import { Route, Link } from "react-router-dom";
 
-import App from "./app/App";
-import SecondPage from "./secondpage/SecondPage";
-import ThirdPage from "./thirdpage/ThirdPage";
+import MainContainer from "./main/MainContainer";
+import SecondContainer from "./second/SecondContainer";
+import ThirdContainer from "./third/ThirdContainer";
 
 import "../styles/ui.less";
 import "../styles/reset.less";
@@ -36,9 +36,9 @@ class Container extends React.Component {
                 transitionEnterTimeout={duration}
                 transitionLeaveTimeout={duration}>
                 <Switch key={location.pathname} location={location}>
-                    <Route exact path="/" component={App} />
-                    <Route path="/second" component={SecondPage} />
-                    <Route path="/third" component={ThirdPage} />
+                    <Route exact path="/" component={MainContainer} />
+                    <Route path="/second" component={SecondContainer} />
+                    <Route path="/third" component={ThirdContainer} />
                 </Switch>
             </CSSTransitionGroup>
         );

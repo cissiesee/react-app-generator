@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./content.less";
+import "./content-component.less";
 
 export default class Content extends React.Component {
     render() {
