@@ -17,7 +17,7 @@ react app 创建命令集
     lk-react-app --component <componentname>
 ### 创建reducer
     lk-react-app --reducer <reducername>
-### 创建store(mobx)
+### 创建store(mobx)(experiment)
     lk-react-app --store <storename>
 ### 创建provider
     lk-react-app --provider <providername>
