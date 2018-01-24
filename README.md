@@ -104,3 +104,7 @@ react app 创建命令集
 1. adjust demo name rule
 1. adjust build logic
 1. improve readme logic
+
+### 1.5.5
+1. remove /dev
+1. modify nodemon watch list
