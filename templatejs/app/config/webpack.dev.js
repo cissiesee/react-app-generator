@@ -23,7 +23,7 @@ module.exports = merge(common, {
         //path: path.resolve(__dirname, outDir),
         //publicPath: publicPath,
         path: "/",
-        publicPath: "/dev",
+        publicPath: "/",
         filename: "[name].[hash].js"
     },
     plugins: [
@@ -50,7 +50,7 @@ module.exports = merge(common, {
                 host: "0.0.0.0",
                 port: 3456, //代理后访问的端口
                 //server: { baseDir: [path.resolve(__dirname, outDir)] }
-                proxy: "localhost:3003/dev"//要代理的端口
+                proxy: "localhost:3003"//要代理的端口
             }, {
                 reload: true
             }

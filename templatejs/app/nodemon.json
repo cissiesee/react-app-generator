@@ -10,9 +10,7 @@
     },
     "watch": [
         "bin",
-        "public",
         "views",
-        "src/mock",
         "app.js"
     ],
     "env": {
