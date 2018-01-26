@@ -108,3 +108,7 @@ react app 创建命令集
 ### 1.5.5
 1. remove /dev
 1. modify nodemon watch list
+
+### 1.5.6
+1. 优化action cli
+1. fix bug：action中少了s
