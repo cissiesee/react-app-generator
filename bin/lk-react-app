@@ -348,9 +348,10 @@ function copyFile(destFile, srcFile, callback) {
 // destFile以目标根地址为参照
 // srcFile以源地址template目录为参照
 function writeFile(destFile, srcFile, data) {
-	console.log(destFile, srcFile);
+	//console.log(destFile, srcFile);
 	var srcFileContent = fs.readFileSync(path.join(__dirname, "../" + programOptions.template, srcFile)).toString();
 	fs.writeFileSync(path.join(programOptions.dir, destFile), data ? ejs.render(srcFileContent, data) : srcFileContent);
+	console.log(("created:" + destFile).green);
 }
 
 // destFile以目标地址为参照

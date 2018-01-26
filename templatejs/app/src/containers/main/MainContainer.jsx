@@ -8,6 +8,10 @@ import * as itemsActions from "../../reducers/items/itemsAction";
 import * as filterAction from "../../reducers/filter/filterAction";
 import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
+
+import lkLog from "lk-log";
+const logger = lkLog.getLogger("MainContainer");
+
 //import httpRequest from "lk-http-request";
 
 import "./main-container.less";
@@ -19,6 +23,7 @@ class Main extends React.Component {
         actions: {}
     }
     componentDidMount() {
+        logger.primary("mounted");
         console.log("app page didmount");
         this.props.actions.getItems();
         //httpRequest("./lib/manifest-lib.json");

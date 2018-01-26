@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import ReactEcharts from "echarts-for-react";
 import Page from "../../ui/page/UIPage";
 
+import lkLog from "lk-log";
+const logger = lkLog.getLogger("MainContainer");
+
 import "./second-container.less";
 
 class Second extends React.Component {
     componentDidMount() {
+        logger.primary("log content2");
         console.log("second page didmount");
     }
     componentWillUnmount() {
