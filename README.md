@@ -116,3 +116,4 @@ react app 创建命令集
 ### 1.6.0
 1. 增加http log支持
 1. 增强cli log
+1. 增加mock host调试配置
