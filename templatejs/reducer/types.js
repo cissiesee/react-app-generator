@@ -1,1 +1,1 @@
-export const /*action type variable*/ = "<%=reducerName%>/*action name*/";
+export const <%=reducerName.toUpperCase() %>_/*type(UPPERCASE)*/ = "<%=reducerName%>/*action name*/";
