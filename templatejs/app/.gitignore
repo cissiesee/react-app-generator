@@ -6,6 +6,10 @@ node_modules
 build
 release
 public
+config/lib_min-config.json
+config/react_min-config.json
+config/lib-config.json
+config/react-config.json
 
 # IDE - VSCode
 .vscode/*

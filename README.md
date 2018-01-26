@@ -113,6 +113,6 @@ react app 创建命令集
 1. 优化action cli
 1. fix bug：action中少了s
 
-### 1.5.7
+### 1.6.0
 1. 增加http log支持
 1. 增强cli log
