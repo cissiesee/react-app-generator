@@ -13,18 +13,17 @@ import {
 import lkLog from "lk-log";
 lkLog.config({
     logUrl: "./log",
-    logLevel: 1
+    logLevel: 0
 });
 const logger = lkLog.getLogger("MainContainer");
 
 
 window.onerror = function (msg, url, l) {
     let errMsg = "";
-    errMsg = "There was an error on this page.\n\n";
-    errMsg += "Error: " + msg + "\n";
-    errMsg += "URL: " + url + "\n";
-    errMsg += "Line: " + l + "\n\n";
-    errMsg += "Click OK to continue.\n\n";
+    errMsg = "There was an error on this page.;";
+    errMsg += "Error: " + msg + ";";
+    errMsg += "URL: " + url + ";";
+    errMsg += "Line: " + l + ";";
     logger.primary(errMsg);
 };
 
