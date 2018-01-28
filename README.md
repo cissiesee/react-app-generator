@@ -117,3 +117,7 @@ react app 创建命令集
 1. 增加http log支持
 1. 增强cli log
 1. 增加mock host调试配置
+
+### 1.6.1
+1. add antd-mobile
+1. add package-lock.json to gitignore
