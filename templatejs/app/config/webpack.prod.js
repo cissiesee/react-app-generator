@@ -3,6 +3,7 @@ var path = require("path");
 var merge = require("webpack-merge");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var DllReferencePlugin = require("webpack/lib/DllReferencePlugin");
+var DefinePlugin = require("webpack/lib/DefinePlugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var common = require("./webpack.common");
 var UglifyJsPlugin = require("webpack/lib/optimize/UglifyJsPlugin");
@@ -28,7 +29,7 @@ module.exports = merge(common, {
             context: __dirname,
             manifest: require(path.resolve(__dirname, constant.libPath + "manifest-lib_min.json"))
         }),
-        new webpack.DefinePlugin({
+        new DefinePlugin({
             "process.env": {
                 NODE_ENV: JSON.stringify("production")
             }

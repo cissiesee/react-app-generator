@@ -2,6 +2,7 @@ var path = require("path");
 var merge = require("webpack-merge");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var DllReferencePlugin = require("webpack/lib/DllReferencePlugin");
+var DefinePlugin = require("webpack/lib/DefinePlugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var common = require("./webpack.common");
 
@@ -31,6 +32,11 @@ module.exports = merge(common, {
         new DllReferencePlugin({
             context: __dirname,
             manifest: require(path.resolve(__dirname, libPath + "manifest-lib.json"))
+        }),
+        new DefinePlugin({
+            "process.env": {
+                NODE_ENV: JSON.stringify("production")
+            }
         }),
         new HtmlWebpackPlugin({
             filename: path.resolve(__dirname, tplDir + "index.html"),
