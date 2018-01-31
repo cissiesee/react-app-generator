@@ -1,6 +1,8 @@
 {
     //允许的全局变量（根据项目需求增减）
-    "globals": {},
+    "globals": {
+        "wx": true //微信jssdk
+    },
     "env": {
         "node": true,
         "es6": true,

@@ -121,3 +121,6 @@ react app 创建命令集
 ### 1.6.1
 1. add antd-mobile
 1. add package-lock.json to gitignore
+
+### 1.6.2
+1. add weixin jssdk logic

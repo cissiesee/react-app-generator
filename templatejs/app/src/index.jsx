@@ -9,6 +9,7 @@ import {
     HashRouter,
     Route
 } from "react-router-dom";
+import { init, wxShareAppMessage, wxShareTimeline } from "./utils/jssdkApi";
 
 import lkLog from "lk-log";
 lkLog.config({
@@ -16,6 +17,8 @@ lkLog.config({
     logLevel: 0
 });
 const logger = lkLog.getLogger("MainContainer");
+
+alert(init, wxShareAppMessage, wxShareTimeline);
 
 
 window.onerror = function (msg, url, l) {
