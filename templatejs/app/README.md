@@ -11,6 +11,6 @@
 ### 预编译类库
     npm run dev:dll
 ### 开发
-    npm run start
+    npm start
 ### 打包
     npm run build:dll && npm run build
