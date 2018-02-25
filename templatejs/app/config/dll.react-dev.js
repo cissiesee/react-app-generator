@@ -14,13 +14,13 @@ module.exports = {
     },
     plugins: [
         new webpack.DllPlugin({
-            path: path.resolve(__dirname, constant.libPath, "manifest-react.json"),
+            path: path.resolve(__dirname, constant.libConfig, "manifest-react.json"),
             name: "[name]",
             context: __dirname
         }),
         new AssetsPlugin({
             path: __dirname,
-            filename: "react-config.json"
+            filename: constant.libConfig + "react-config.json"
         })
     ],
 };

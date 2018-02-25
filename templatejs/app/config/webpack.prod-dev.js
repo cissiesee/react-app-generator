@@ -11,7 +11,7 @@ var libConfig = require("./lib-config");
 
 var constant = require("./constant");
 var srcDir = constant.srcDir;
-var outDir = constant.outDir;
+var releaseDir = constant.releaseDir;
 var publicPath = constant.publicPath;
 var libPath = constant.libPath;
 var tplDir = constant.tplDir;
@@ -19,19 +19,19 @@ var tplDir = constant.tplDir;
 module.exports = merge(common, {
     devtool: "source-map",
     output: {
-        path: path.resolve(__dirname, outDir),
-        publicPath: publicPath,
+        path: path.resolve(__dirname, releaseDir),
+        publicPath: constant.publicPath,
         filename: "[name]." + constant.timeStamp + ".js"
     },
     plugins: [
         new ExtractTextPlugin("[name]." + constant.timeStamp + ".css"),
         new DllReferencePlugin({
             context: __dirname,
-            manifest: require(path.resolve(__dirname, libPath + "manifest-react.json"))
+            manifest: require(path.resolve(__dirname, constant.libConfig, "manifest-react.json"))
         }),
         new DllReferencePlugin({
             context: __dirname,
-            manifest: require(path.resolve(__dirname, libPath + "manifest-lib.json"))
+            manifest: require(path.resolve(__dirname, constant.libConfig, "manifest-lib.json"))
         }),
         new DefinePlugin({
             "process.env": {
@@ -39,7 +39,7 @@ module.exports = merge(common, {
             }
         }),
         new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, tplDir + "index.html"),
+            filename: path.resolve(__dirname, releaseDir + "main.html"),
             template: path.resolve(__dirname, srcDir + "tpl/index.html"),
             _reactRel: reactConfig.reactRel.js,
             _lib: libConfig.lib.js,

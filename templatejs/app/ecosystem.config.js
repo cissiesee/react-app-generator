@@ -6,9 +6,9 @@ module.exports = {
     apps: [
         // First application
         {
-            name: "server",
-            script: "server.js",
-            "node_args": "--harmony",
+            name: "www",
+            script: "bin/www",
+            "node_args": "-harmony",
             "exec_interpreter": "babel-node",
             env: {
                 COMMON_VARIABLE: "true"
@@ -16,7 +16,7 @@ module.exports = {
             env_production: {
                 NODE_ENV: "production"
             },
-            "instances": 0,
+            "instances": 1,
             "exec_mode": "cluster"
         }
     ],

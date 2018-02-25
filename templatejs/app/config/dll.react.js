@@ -18,13 +18,13 @@ module.exports = {
     },
     plugins: [
         new webpack.DllPlugin({
-            path: path.resolve(__dirname, constant.libPath + "/manifest-react_min.json"),
+            path: path.resolve(__dirname, constant.libConfig, "manifest-react_min.json"),
             name: "[name]",
             context: __dirname
         }),
         new AssetsPlugin({
             path: __dirname,
-            filename: "react_min-config.json"
+            filename: constant.libConfig + "react_min-config.json"
         }),
         new webpack.DefinePlugin({
             "process.env": {

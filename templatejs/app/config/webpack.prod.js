@@ -10,12 +10,12 @@ var UglifyJsPlugin = require("webpack/lib/optimize/UglifyJsPlugin");
 
 var constant = require("./constant");
 
-var reactConfig = require("./react_min-config.json");
-var libConfig = require("./lib_min-config.json");
+var reactConfig = require("./lib/react_min-config.json");
+var libConfig = require("./lib/lib_min-config.json");
 
 module.exports = merge(common, {
     output: {
-        path: path.resolve(__dirname, constant.outDir),
+        path: path.resolve(__dirname, constant.releaseDir),
         publicPath: constant.publicPath,
         filename: "[name]." + constant.timeStamp + ".min.js"
     },
@@ -23,11 +23,11 @@ module.exports = merge(common, {
         new ExtractTextPlugin("[name]." + constant.timeStamp + ".css"),
         new DllReferencePlugin({
             context: __dirname,
-            manifest: require(path.resolve(__dirname, constant.libPath + "manifest-react_min.json"))
+            manifest: require(path.resolve(__dirname, constant.libConfig, "manifest-react_min.json"))
         }),
         new DllReferencePlugin({
             context: __dirname,
-            manifest: require(path.resolve(__dirname, constant.libPath + "manifest-lib_min.json"))
+            manifest: require(path.resolve(__dirname, constant.libConfig, "manifest-lib_min.json"))
         }),
         new DefinePlugin({
             "process.env": {
@@ -35,7 +35,7 @@ module.exports = merge(common, {
             }
         }),
         new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, constant.tplDir + "index.html"),
+            filename: path.resolve(__dirname, constant.releaseDir + "main.html"),
             template: path.resolve(__dirname, constant.srcDir + "tpl/index.html"),
             _reactRel: reactConfig.reactRel_min.js,
             _lib: libConfig.lib_min.js,

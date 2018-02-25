@@ -7,6 +7,7 @@ import { Route, Link } from "react-router-dom";
 import MainContainer from "./main/MainContainer";
 import SecondContainer from "./second/SecondContainer";
 import ThirdContainer from "./third/ThirdContainer";
+import { initJssdk, wxShareAppMessage, wxShareTimeline } from "../utils/jssdkApi";
 
 import "../styles/ui.less";
 import "../styles/reset.less";
@@ -20,6 +21,25 @@ class Container extends React.Component {
         // document.body.addEventListener("touchmove", (ev) => {
         //     ev.preventDefault();
         // });
+
+        //微信二次分享
+        // initJssdk("")
+        //     .then(() => {
+        //         logger.primary("initJssdk");
+        //         wxShareAppMessage({
+        //             title: "",
+        //             desc: "",
+        //             imgUrl: ""
+        //         });
+        //         wxShareTimeline({
+        //             title: "",
+        //             imgUrl: ""
+        //         });
+        //         logger.primary("initJssdk finished");
+        //     })
+        //     .catch((error) => {
+        //         // alert(error)
+        //     });
     }
     render() {
         // console.log(this.props.location.pathname, ",", this.props.history.action);
@@ -27,7 +47,7 @@ class Container extends React.Component {
         const location = this.props.location;
         const isPop = action === "POP" ? true : false;
         const transitionName = "transitionWrapper" + (isPop ? "-back" : "");
-        const duration = 400;
+        const duration = 500;
         return (
             <CSSTransitionGroup
                 transitionName={transitionName}

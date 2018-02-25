@@ -1,18 +1,14 @@
-var outDir = "../public/dist/";
-//var distDir = "../../server/public/app/";
-var tplDir = "../views/";
 var timeStamp = (new Date()).getTime() + "";
 
 module.exports = {
-    timeStamp: "znlc" + timeStamp,
-    publicPath: "./dist/",
-    outDir: outDir,
-    //distDir: distDir,
+    timeStamp: "fzny" + timeStamp,
+    cdnHost: "https://a-static.fzzqxf.com",
+    //cdnHost: "https://static.fzzqcdn.com",
+    publicPath: "",//"./dist/",
+    releaseDir: "../release/",
     srcDir: "../src/",
-    tplDir: tplDir,
-    libPath: outDir + "lib/",
-    //distLibPath: distDir + "lib/",
-    //distAppPath: "app/",
+    libPath: "../public/lib",
+    libConfig: "./lib/",
     reactVendor: [
         "react",
         "react-immutable-render-mixin",
@@ -26,8 +22,8 @@ module.exports = {
     ],
     libVendor: [
         "babel-polyfill",
-        "immutable"
-        // "react-fastclick",
+        "immutable",
+        "react-fastclick"
         // "echarts/lib/echarts",
         // "echarts/lib/chart/line",
         // "echarts/lib/chart/lines",

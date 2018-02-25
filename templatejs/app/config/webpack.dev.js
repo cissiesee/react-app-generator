@@ -7,8 +7,8 @@ var DllReferencePlugin = require("webpack/lib/DllReferencePlugin");
 //var HotModuleReplacementPlugin = require("webpack/lib/HotModuleReplacementPlugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-var reactConfig = require("./react-config");
-var libConfig = require("./lib-config");
+var reactConfig = require("./lib/react-config");
+var libConfig = require("./lib/lib-config");
 
 var constant = require("./constant");
 var outDir = constant.outDir;
@@ -30,11 +30,11 @@ module.exports = merge(common, {
         new ExtractTextPlugin("[name].[hash].css"),
         new DllReferencePlugin({
             context: __dirname,
-            manifest: require(path.resolve(__dirname, libPath + "manifest-react.json"))
+            manifest: require(path.resolve(__dirname, constant.libConfig, "manifest-react.json"))
         }),
         new DllReferencePlugin({
             context: __dirname,
-            manifest: require(path.resolve(__dirname, libPath + "manifest-lib.json"))
+            manifest: require(path.resolve(__dirname, constant.libConfig, "manifest-lib.json"))
         }),
         //new HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({

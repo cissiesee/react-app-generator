@@ -11,8 +11,6 @@ react app 创建命令集
     lk-react-app --dir <reactprojectname>
 ### 创建container
     lk-react-app [--mobx true] --container <containername>
-### 创建jtcontainer(建投容器)
-    lk-react-app --jtcontainer <containername>
 ### 创建component
     lk-react-app --component <componentname>
 ### 创建reducer

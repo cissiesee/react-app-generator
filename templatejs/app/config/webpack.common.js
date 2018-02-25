@@ -14,7 +14,7 @@ var plugins = [
 
 module.exports = {
     entry: {
-        index: path.resolve(__dirname, srcDir + "index.jsx")
+        index: ["babel-polyfill", path.resolve(__dirname, srcDir + "index.jsx")]
     },
     module: {
         rules: [
