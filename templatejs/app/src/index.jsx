@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import Container from "./containers/Container";
 import configureStore from "./configureStore";
+import "./utils/responsive";
 // import { Router, Route, IndexRoute } from "react-router";
 // import { RouteTransition } from 'react-router-transition';
 import {
