@@ -6,8 +6,8 @@ module.exports = {
     //cdnHost: "https://static.fzzqcdn.com",
     publicPath: "",//"./dist/",
     releaseDir: "../release/",
+    debugDir: "../public/",
     srcDir: "../src/",
-    libPath: "../public/lib",
     libConfig: "./lib/",
     reactVendor: [
         "react",

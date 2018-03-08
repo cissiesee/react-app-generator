@@ -35,7 +35,7 @@ module.exports = merge(common, {
             }
         }),
         new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, constant.releaseDir + "main.html"),
+            filename: path.resolve(__dirname, constant.releaseDir + "index.html"),
             template: path.resolve(__dirname, constant.srcDir + "tpl/index.html"),
             _reactRel: reactConfig.reactRel_min.js,
             _lib: libConfig.lib_min.js,

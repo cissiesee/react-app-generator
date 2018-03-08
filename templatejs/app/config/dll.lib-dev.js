@@ -8,7 +8,7 @@ module.exports = {
         "lib": constant.libVendor
     },
     output: {
-        path: path.resolve(__dirname, constant.libPath),
+        path: path.resolve(__dirname, constant.debugDir + "lib"),
         filename: "[name]." + constant.timeStamp + ".js",
         library: "[name]"
     },

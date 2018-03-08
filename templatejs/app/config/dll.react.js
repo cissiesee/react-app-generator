@@ -12,7 +12,7 @@ module.exports = {
         "reactRel_min": constant.reactVendor
     },
     output: {
-        path: path.resolve(__dirname, constant.libPath),
+        path: path.resolve(__dirname, constant.releaseDir + "lib"),
         filename: "[name]." + constant.timeStamp + ".js",
         library: "[name]"
     },
