@@ -122,3 +122,6 @@ react app 创建命令集
 
 ### 1.6.2
 1. add weixin jssdk logic
+
+### 1.6.3
+1. 完全拆分打包代码和调试代码
